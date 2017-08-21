@@ -1,0 +1,76 @@
+<html>
+<head>
+<style>
+  body {
+    height: 100%;
+    margin: 0px;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+  }
+  #top-spacer {
+    height: 500px;
+    flex: 1;
+  }
+  #app-buttons {
+    display: flex;
+    height: 200px;
+  }
+  #left-spacer {
+    width: 150px;
+  }
+  .app-button {
+    width: 100px;
+    border: 1px solid;
+    position: relative;
+    top: 0%;
+    transition-duration: 1s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.7, -0.5, .3, 1.5);
+    transform: skewX(-10deg);
+  }
+  .button-caption {
+    transform: skewX(10deg);
+    top: 70%;
+    text-align: center;
+    position: relative;
+  }
+</style>
+</head>
+<body>
+<div id="top-spacer">1</div>
+<div id="app-buttons">
+  <div id="left-spacer"></div>
+  <div class="app-button" style="background-color: red"><div class="button-caption">Youtube</div></div>
+  <div class="app-button" style="background-color: yellow"><div class="button-caption">LG Store</div></div>
+  <div class="app-button" style="background-color: lime"><div class="button-caption">VKontakte</div></div>
+  <div class="app-button" style="background-color: blue"><div class="button-caption">Facebook</div></div>
+  <div class="app-button" style="background-color: red"><div class="button-caption">Youtube</div></div>
+  <div class="app-button" style="background-color: yellow"><div class="button-caption">LG Store</div></div>
+</div>
+<script>
+  const appButtons = document.querySelectorAll(".app-button");
+  let shown = true;
+
+  function toggleAppButtons(e) {
+    if (e.key != 1) return;
+
+    shown = !shown;
+    let coord = 200;
+    let step = 50;
+    appButtons.forEach(function(btn) {
+      if (shown) {
+        btn.style.top = `0%`;
+      } else {
+        btn.style.top = `${coord}%`;
+        coord = coord + step;
+        if (coord > 300)
+          step = -25;
+      }
+    });
+  }
+
+  document.addEventListener("keyup", toggleAppButtons);
+</script>
+</body>
+</html>
