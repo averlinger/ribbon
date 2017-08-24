@@ -12,7 +12,7 @@
     height: 500px;
     flex: 1;
   }
-  #app-buttons {
+  #app-panel {
     display: flex;
     height: 200px;
   }
@@ -46,7 +46,7 @@
 </head>
 <body>
 <div id="top-spacer">1</div>
-<div id="app-buttons">
+<div id="app-panel">
   <div id="left-spacer"></div>
   <div class="app-button" style="background-color: red"><img src="img/youtube.png"/><p>Youtube</p></div>
   <div class="app-button" style="background-color: yellow"><img src="img/cnn.png"/><p>CNN</p></div>
@@ -56,30 +56,27 @@
   <div class="app-button" style="background-color: yellow"><img src="img/yandex.png"/><p>Yandex</p></div>
 </div>
 <script>
+  const appPanel = document.querySelector("#app-panel");
   const appButtons = document.querySelectorAll(".app-button");
   let shown = true;
 
-  function toggleAppButtons(e) {
+  function toggleApps(e) {
     if (e.key != 1) return;
 
     shown = !shown;
-    let coord = 400;
-    let step = -50;
-    appButtons.forEach(function(btn) {
+
+    const center = (appPanel.offsetWidth + appPanel.offsetLeft) / 2;
+    const bottom = appPanel.offsetTop + appPanel.offsetHeight;
+    appButtons.forEach(btn => {
       if (shown) {
         btn.style.top = `0%`;
       } else {
-        btn.style.top = `${coord}%`;
-        if (coord <= 300 && step < 0) {
-          coord = coord - 50;
-          step = 50;
-        }
-        coord = coord + step;
+        btn.style.top = `${bottom + Math.abs(center - btn.offsetLeft) * 2}px`;
       }
     });
   }
 
-  document.addEventListener("keyup", toggleAppButtons);
+  document.addEventListener("keyup", toggleApps);
 </script>
 </body>
 </html>
